@@ -43,5 +43,17 @@ class LinkedList:
     return False
 
   def reverse_list(self):
-    # TO BE COMPLETED
-    pass
+    # Edge cases(empty list/solitary nodes)
+    if self.head == None or self.head.get_next() == None:
+      return
+    else:
+      old_head = self.head
+      mid = old_head.get_next()
+      old_head.set_next(None)
+      while mid and mid.get_next():
+        new_head = mid.get_next()
+        mid.set_next(old_head)
+        old_head = mid
+        mid = new_head
+      mid.set_next(old_head)
+      self.head = mid

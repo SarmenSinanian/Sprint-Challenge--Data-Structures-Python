@@ -28,6 +28,7 @@ class LinkedList:
     self.head = node
 
   def contains(self, value):
+    # edge case; if no head, return 'false'
     if not self.head:
       return False
     # get a reference to the node we're currently at; update this as we traverse the list
@@ -43,5 +44,27 @@ class LinkedList:
     return False
 
   def reverse_list(self):
-    # TO BE COMPLETED
-    pass
+    # Edge cases(empty list/solitary nodes)
+    if self.head == None or self.head.get_next() == None:
+      return
+    else:
+      # Set temp var old_head as current head
+      old_head = self.head
+      # Set temp var mid as the next item from current head
+      mid = old_head.get_next()
+      # Delete/set-to-None the reference to the old_head's original next node
+      old_head.set_next(None)
+      # While loop for when there is a mid and a next point
+      while mid and mid.get_next():
+        # Set temp var new_head as the next item from mid/old_head.get_next
+        new_head = mid.get_next()
+        # Change pointer from the next item to the previous item (from mid.next_node to old_head)
+        mid.set_next(old_head)
+        # Change old_head to mid as part of circular logic
+        old_head = mid
+        # Change mid to new_head as part of circular logic
+        mid = new_head
+      # Final reversal
+      mid.set_next(old_head)
+      # Finally setting tail as head
+      self.head = mid
